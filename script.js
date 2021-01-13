@@ -1,5 +1,10 @@
 /*
- * DAY 1
+ * DAY 6
+ * 
+ * The form asks a series of 26 yes-or-no questions marked 'a' through 'z'. (Duplicate answers
+ * to the same question don't count extra; each question counts at most once.)
+ * Each group's answers are separated by a blank line, and within each group, each person's
+ * answers are on a single line.
  * 
  * For each group, count the number of questions to which anyone answered "yes". What is the sum
  * of those counts?
@@ -2292,6 +2297,30 @@ hlqbanmtjy
 tdrvxcajgnfpoke
 jtiunkpsroa`
 
-// Convert the string into an array with the split() method, creating an array of substrings. As the entries are separated by a newline character, use its escape sequence to split the string.
-let entriesArr = entries.split('\n');
+// Convert the string into an array with the split() method, separating groups answers.
+let entriesArr = entries.split('\n\n');
 
+// Delete newlines within each group
+entriesArr = entriesArr.map(value => value.replace(/\n/g, ''));
+
+// Remove duplicates within each group
+entriesArr = entriesArr.map(value => value = new Set(value));
+
+// Calculate 'yes' answers
+let naswerYes = [];
+for (i = 0; i < entriesArr.length; i++) {
+    naswerYes.push(entriesArr[i].size);
+}
+
+let sum = 0;
+naswerYes.forEach(value => {sum += value});
+
+console.log('The sum of those counts is ' + sum);
+
+
+/*
+ * DAY 6 (II)
+ * 
+ * You don't need to identify the questions to which anyone answered "yes"; you need to identify
+ * the questions to which everyone answered "yes"!
+ */
