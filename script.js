@@ -2298,24 +2298,24 @@ tdrvxcajgnfpoke
 jtiunkpsroa`
 
 // Convert the string into an array with the split() method, separating groups answers.
-let entriesArr = entries.split('\n\n');
+const entriesArr = entries.split('\n\n');
 
 // Delete newlines within each group
-entriesArr = entriesArr.map(value => value.replace(/\n/g, ''));
+let formArr = entriesArr.map(value => value.replace(/\n/g, ''));
 
 // Remove duplicates within each group
-entriesArr = entriesArr.map(value => value = new Set(value));
+formArr = formArr.map(value => value = new Set(value));
 
-// Calculate 'yes' answers
-let naswerYes = [];
-for (i = 0; i < entriesArr.length; i++) {
-    naswerYes.push(entriesArr[i].size);
+// Sum 'yes' answers
+let answerYes = [];
+for (i = 0; i < formArr.length; i++) {
+    answerYes.push(formArr[i].size);
 }
 
 let sum = 0;
-naswerYes.forEach(value => {sum += value});
+answerYes.forEach(value => {sum += value});
 
-console.log('The sum of those counts is ' + sum);
+console.log('Part I. The sum of those counts is ' + sum);
 
 
 /*
@@ -2324,3 +2324,32 @@ console.log('The sum of those counts is ' + sum);
  * You don't need to identify the questions to which anyone answered "yes"; you need to identify
  * the questions to which everyone answered "yes"!
  */
+
+
+
+let form2Arr = entriesArr.map(value => {
+    value = value.split('\n');
+    return value;
+});
+
+function repeated(letter) {
+    // If no array passed or array with length zero
+    if (!letter || !letter.length) return null;
+    // Extract first word chars
+    let firstString = form2Arr[i][0].split('');
+    // Get first word chars that are in all the other words
+    return firstString.filter((char, j) => firstString.indexOf(char) === j  // first occurence
+    && form2Arr[i].every(x => x.indexOf(char) >= 0));  // and it repeats in all other strings
+}
+
+let result = [];
+for (i = 0; i < form2Arr.length; i++) {
+    result[i] = repeated(form2Arr[i]);
+}
+
+let sum2 = 0;
+for (i = 0; i < result.length; i++) {
+    sum2 += result[i].length;
+}
+
+console.log('Part II. The sum of those counts is ' + sum2);
